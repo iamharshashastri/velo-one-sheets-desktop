@@ -1,0 +1,30 @@
+{
+  "name": "velo-one-sheets",
+  "productName": "Velo One Sheets",
+  "version": "1.0.0",
+  "description": "The ultimate cloud spreadsheet, now natively on Windows.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win"
+  },
+  "author": "Velo Computing Technologies",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^29.1.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "tech.velocomputing.sheets",
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
