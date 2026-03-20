@@ -3,7 +3,7 @@ name: Build Velo One Sheets for Windows
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch: # Allows you to run it manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build-windows:
@@ -16,38 +16,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install Dependencies
         run: npm install
 
       - name: Build Windows Executable
         run: npm run build:win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # This grabs the output .exe and attaches it to the GitHub Action run
       - name: Upload Unsigned EXE Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Velo-One-Sheets-Windows-Setup
           path: dist/*.exe
-
-      # -----------------------------------------------------------------
-      # SIGNPATH FOUNDATION INTEGRATION (Ready to uncomment when you have your API keys)
-      # -----------------------------------------------------------------
-      # - name: Sign with SignPath Foundation
-      #   uses: signpath/github-action-submit-signing-request@v1
-      #   with:
-      #     api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-      #     organization-id: '<your-org-id>'
-      #     project-slug: 'velo-one-sheets'
-      #     signing-policy-slug: 'release-signing'
-      #     artifact-configuration-slug: 'default'
-      #     github-artifact-name: 'Velo-One-Sheets-Windows-Setup'
-      #     wait-for-completion: true
-      #     output-artifact-directory: 'signed-artifact'
-      #
-      # - name: Upload Signed EXE Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Velo-One-Sheets-Signed
-      #     path: signed-artifact/*.exe
