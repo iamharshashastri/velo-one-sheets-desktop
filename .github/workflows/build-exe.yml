@@ -29,5 +29,5 @@ jobs:
       - name: Upload Unsigned EXE Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Velo-One-Sheets-Windows-Setup
+          name: windows/sheets
           path: dist/*.exe
